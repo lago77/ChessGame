@@ -6,15 +6,21 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import main.pieces.Piece;
+
 public class Chess {
 	
 	static JFrame MainFrame = new JFrame();
+	
+	static List<CustomJButton> moveStack = new ArrayList<>();
 
 	public static void main(String[] args) {
 		
@@ -47,34 +53,167 @@ public class Chess {
 		int alt = 1;
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
+				//JButton button = new CustomJButton();
 				JButton button = new CustomJButton();
+				
+				switch(i) {
+
+				    case 0:{
+
+				    	switch(j) {
+				    		case 0:
+							case 7: { 
+								Piece rook = new Piece("Rook","b");
+								((CustomJButton)button).setPiece(rook);
+								break;
+							}
+							case 1:
+							case 6: {
+								
+								Piece knight = new Piece("Knight","b");
+								((CustomJButton)button).setPiece(knight);
+								break;
+							}
+							
+							case 2:
+							case 5: {
+								
+								Piece bishop = new Piece("Bishop","b");
+								((CustomJButton)button).setPiece(bishop);
+								break;
+							}
+							
+							case 3: {
+								
+								Piece queen = new Piece("Queen","b");
+								((CustomJButton)button).setPiece(queen);
+								break;
+							}
+							
+							case 4: {
+								
+								Piece king = new Piece("King","b");
+								((CustomJButton)button).setPiece(king);
+								break;
+							}
+								
+				    	
+				    	}
+				    	
+				    	break;
+				    }
+					case 1: { 
+						Piece pawn = new Piece("Pawn","b");
+						((CustomJButton)button).setPiece(pawn);
+						break;
+					}
+					
+					case 6:{
+						Piece pawn = new Piece("Pawn","w");
+						((CustomJButton)button).setPiece(pawn);
+						break;
+					}
+					
+					case 7: {
+				    	switch(j) {
+			    		case 0:
+						case 7: { 
+							Piece rook = new Piece("Rook","w");
+							((CustomJButton)button).setPiece(rook);
+							break;
+						}
+						case 1:
+						case 6: {
+							
+							Piece knight = new Piece("Knight","w");
+							((CustomJButton)button).setPiece(knight);
+							break;
+						}
+						
+						case 2:
+						case 5: {
+							
+							Piece bishop = new Piece("Bishop","w");
+							((CustomJButton)button).setPiece(bishop);
+							break;
+						}
+						
+						case 3: {
+							
+							Piece queen = new Piece("Queen","w");
+							((CustomJButton)button).setPiece(queen);
+							break;
+						}
+						
+						case 4: {
+							
+							Piece king = new Piece("King","w");
+							((CustomJButton)button).setPiece(king);
+							break;
+						}
+							
+			    	
+			    	}						
+						
+						
+					break;
+					}
+				}
+				
+
 				if ((i+j) % 2 == 0) {
 					button.setBackground(Color.WHITE);
 				}
 				else {
-					button.setBackground(Color.BLACK);
 					
+					button.setBackground(Color.BLACK);
+				
 				}
 				((CustomJButton) button ).setCoord(i,j);
-				//System.out.println(((CustomJButton) button ).getCoord());
-				// button.setText("testing");
-				// System.out.println(button);
+
 				p2.add(button);
-				
+
 			}
 			//p2.add(new JButton("button " + i));
 		}
 		
-		
+
 		 Component[] components = p2.getComponents();
 		 
 		  for(Component component: components)
 		    {
-			 System.out.println("test");
-			System.out.println(components.length);
-			System.out.println(((CustomJButton)component).getCoord());
-
-
+			// System.out.println("test");
+			//System.out.println(components.length);
+			//System.out.println(((CustomJButton)component).getCoord());
+			//System.out.println(((CustomJButton)component).getPiece());
+			((JButton)component).addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (Chess.moveStack.size() == 0) {
+						
+						System.out.println("Empty moves");
+						if ( ((CustomJButton)component).getPiece() != null) {
+							
+							Chess.moveStack.add((CustomJButton)component);
+				
+						}
+	
+					}
+					
+					else {
+						if ( ((CustomJButton)component).getPiece() == null) {
+							
+							System.out.println("We're moving "+Chess.moveStack.get(0).getPiece().getColor() + " to "+((CustomJButton)component).getCoord() );
+							
+						}
+						
+						
+					}
+					System.out.println("Pressing "+((CustomJButton)component).getPiece() +": "+ ((CustomJButton)component).getCoord() );
+					
+				}
+			});
 			//MainFrame.setVisible(true);
 			
 		}
