@@ -3,7 +3,7 @@ package main.pieces;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-
+//Used for the open close principle
 
 public class Knight {
 	
