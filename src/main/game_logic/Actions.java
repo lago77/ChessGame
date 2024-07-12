@@ -33,12 +33,11 @@ public class Actions {
 		if (!Chess.turn.substring(0,1).equals(color )) {
 		
 			throw new TurnValidation("Not the right turn yet");
-		//	return true;
+	
 			
 		}
 
-		
-		//return false;
+
 		
 	}
 	
